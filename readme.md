@@ -1,5 +1,19 @@
 # Web-приложение для планирования целей
 
+### Установка зависимостей
+
+    pip install -r requirements.txt
+
+или
+
+    poetry install
+
+### Запуск приложения
+
+    ./manage.py makemigrations
+    ./manage.py migrate
+    ./manage.py runserver
+
 ## Функционал:
 
 1. Вход/регистрация/аутентификация через вк.
