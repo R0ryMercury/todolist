@@ -13,6 +13,16 @@ services:
     depends_on:
       db:
           condition: service_healthy
+      migration:
+          condition: service_completed_successfully
+  migration:
+    build: .
+    command: python manage.py migrate
+    volumes:
+      - ./todolist/:/code/todolist/
+    depends_on:
+      db:
+        condition: service_healthy
   db:
     image: postgres:latest
     volumes:

@@ -11,10 +11,4 @@ RUN apk update \
 COPY requirements.txt .
 RUN python3 -m pip install -r requirements.txt
 
-COPY /todolist/docker-entrypoint.sh .
-RUN sed -i 's/\r$//g' /code/docker-entrypoint.sh
-RUN chmod +x /code/docker-entrypoint.sh
-
 COPY todolist todolist/
-
-ENTRYPOINT [ "/code/docker-entrypoint.sh" ]
