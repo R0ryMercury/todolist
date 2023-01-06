@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./todolist/:/code/todolist/
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      db:
+          condition: service_healthy
+  db:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=todolist
+      - POSTGRES_PASSWORD=todolist
+      - POSTGRES_DB=todolist
+    restart: always
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  todolist:
