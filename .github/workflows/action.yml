@@ -6,7 +6,6 @@ jobs:
     steps:
       - name: clone code
         uses: actions/checkout@v2
-          source .env
       - name: docker build
         run: docker build -t gmoroz/todolist:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
       - name: docker login
@@ -19,13 +18,14 @@ jobs:
     steps:
       - name: clone code
         uses: actions/checkout@v2
+      - name: add env variables
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+          source .env
       - name: render configs
         run: |
           mkdir deploy
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
-      - name: add env variables
-        run: |
-          echo "${{ secrets.ENV_FILE }}" > .env
       - name: copy files to server
         uses: appleboy/scp-action@master
         with:
