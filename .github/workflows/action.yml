@@ -18,10 +18,18 @@ jobs:
     steps:
       - name: clone code
         uses: actions/checkout@v2
-      - name: add env variables
+      - name: print env
         run: |
-          echo "${{ secrets.ENV_FILE }}" > .env
-          source .env
+          echo $ENV_FILE &gt;&gt; deploy/.env
+          cat deploy/.env
+        shell: bash
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ENV_FILE
+          path: deploy/.env
       - name: render configs
         run: |
           mkdir deploy
