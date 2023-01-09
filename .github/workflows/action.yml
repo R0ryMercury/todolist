@@ -19,6 +19,14 @@ jobs:
       POSTGRES_USER: ${{ secrets.DB_USER }}
       POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
       POSTGRES_DB: ${{ secrets.DB_NAME }}
+      DEBUG: false
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DB_ENGINE: ${{ secrets.DB_ENGINE }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
     steps:
       - name: clone code
         uses: actions/checkout@v2
@@ -26,18 +34,6 @@ jobs:
         run: |
           mkdir deploy
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
-      - name: make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_DEBUG: false
-          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          envkey_DB_ENGINE: ${{ secrets.DB_ENGINE }}
-          envkey_DB_NAME: ${{ secrets.DB_NAME }}
-          envkey_DB_USER: ${{ secrets.DB_USER }}
-          envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          envkey_DB_HOST: ${{ secrets.DB_HOST }}
-          envkey_DB_PORT: ${{ secrets.DB_PORT }}
-          file_name: .env
       - name: copy files to server
         uses: appleboy/scp-action@master
         with:
