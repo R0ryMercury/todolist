@@ -15,25 +15,31 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push
+    env:
+      POSTGRES_USER: ${{ secrets.DB_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.DB_NAME }}
     steps:
       - name: clone code
         uses: actions/checkout@v2
-      - name: print env
-        run: |
-          echo $ENV_FILE | envsubst > .env
-          cat .env
-        shell: bash
-        env:
-          ENV_FILE: ${{ secrets.ENV_FILE }}
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: ENV_FILE
-          path: .env
       - name: render configs
         run: |
           mkdir deploy
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+      - name: make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_DEBUG: false
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          envkey_DB_ENGINE: ${{ secrets.DB_ENGINE }}
+          envkey_DB_NAME: ${{ secrets.DB_NAME }}
+          envkey_DB_USER: ${{ secrets.DB_USER }}
+          envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          envkey_DB_HOST: ${{ secrets.DB_HOST }}
+          envkey_DB_PORT: ${{ secrets.DB_PORT }}
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          file_name: .env
       - name: copy files to server
         uses: appleboy/scp-action@master
         with:
