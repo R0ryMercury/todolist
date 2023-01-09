@@ -20,8 +20,9 @@ jobs:
         uses: actions/checkout@v2
       - name: print env
         run: |
-          echo $ENV_FILE > deploy/.env
-          cat deploy/.env
+          ls
+          echo $ENV_FILE > .env
+          cat .env
         shell: bash
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
