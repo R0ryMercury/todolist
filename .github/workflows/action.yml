@@ -46,7 +46,7 @@ jobs:
           target: "todolist"
           strip_components: 1
       - name: deploy app and clean old version
-        uses: actions/checkout@v3
-        uses: isbang/compose-action@v1.4.1
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.4.1
         with:
           compose-file: "deploy/docker-compose.yaml"
