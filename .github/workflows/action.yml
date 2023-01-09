@@ -37,8 +37,6 @@ jobs:
           envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           envkey_DB_HOST: ${{ secrets.DB_HOST }}
           envkey_DB_PORT: ${{ secrets.DB_PORT }}
-          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
           file_name: .env
       - name: copy files to server
         uses: appleboy/scp-action@master
