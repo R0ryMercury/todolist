@@ -27,6 +27,8 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_HOST: ${{ secrets.DB_HOST }}
       DB_PORT: ${{ secrets.DB_PORT }}
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
     steps:
       - name: clone code
         uses: actions/checkout@v2
