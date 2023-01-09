@@ -11,7 +11,7 @@ services:
     ports:
       - 8000:8000
     env_file:
-      - .env.docker
+      - .env
     depends_on:
       db:
           condition: service_healthy
@@ -24,7 +24,7 @@ services:
     volumes:
       - ./todolist:/code/todolist/
     env_file:
-      - .env.docker
+      - .env
     depends_on:
       db:
         condition: service_healthy
