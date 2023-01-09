@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ENV_FILE
-          path: deploy/.env
+          path: .env
       - name: render configs
         run: |
           mkdir deploy
