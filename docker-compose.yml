@@ -3,6 +3,7 @@ version: '3.9'
 services:
   api:
     build: .
+    image: gmoroz/todolist
     command: >
       sh -c "python /code/todolist/manage.py runserver 0.0.0.0:8000"
     volumes:
@@ -18,6 +19,7 @@ services:
           condition: service_completed_successfully
   migration:
     build: .
+    image: gmoroz/todolist
     command: python /code/todolist/manage.py migrate
     volumes:
       - ./todolist:/code/todolist/
@@ -28,6 +30,7 @@ services:
         condition: service_healthy
   frontend:
     build: ./frontend
+    image: gmoroz/todolist
     volumes:
       - frontend:/app/build
     depends_on:
