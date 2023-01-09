@@ -1,5 +1,5 @@
 FROM python:3.10-alpine
-LABEL creator="R0ryMercury"
+LABEL creator="gmoroz"
 
 WORKDIR /code
 
