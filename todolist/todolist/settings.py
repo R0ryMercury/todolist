@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "core",
+    "djoser",
 ]
 
 MIDDLEWARE = [
@@ -74,7 +75,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "todolist.wsgi.application"
 
-
+DJOSER = {
+    "SERIALIZERS": {
+        "user_create": "user.serializers.UserRegistrationSerializer",
+        "current_user": "user.serializers.CurrentUserSerializer",
+    },
+    "LOGIN_FIELD": "username",
+}
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
