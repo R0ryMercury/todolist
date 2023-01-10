@@ -6,8 +6,6 @@ services:
     image: gmoroz/todolist
     command: >
       sh -c "python /code/todolist/manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - ./todolist:/code/todolist/
     ports:
       - 8000:8000
     env_file:
@@ -20,9 +18,8 @@ services:
   migration:
     build: .
     image: gmoroz/todolist
-    command: python /code/todolist/manage.py migrate
-    volumes:
-      - ./todolist:/code/todolist/
+    command: >
+      sh -c "python /code/todolist/manage.py migrate"
     env_file:
       - .env.docker
     depends_on:
