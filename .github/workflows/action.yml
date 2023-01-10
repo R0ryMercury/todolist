@@ -31,8 +31,6 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_HOST: ${{ secrets.DB_HOST }}
       DB_PORT: ${{ secrets.DB_PORT }}
-      USERNAME: ${{ secrets.SSH_USERNAME }}
-      PASSWORD: ${{ secrets.SSH_PASSWORD }}
     steps:
       - name: clone code
         uses: actions/checkout@v2
@@ -57,5 +55,5 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd todolist
-            echo $PASSWORD | sudo -S docker-compose rm -sv
-            echo $PASSWORD | sudo -S docker-compose up -d
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose rm -sv
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose up -d
