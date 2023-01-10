@@ -47,7 +47,7 @@ jobs:
           source: "deploy/docker-compose.yaml"
           target: "todolist"
           strip_components: 1
-      - name: run docker-compose
+      - name: deploy app and clean old version
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -55,5 +55,5 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd todolist
-            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose rm -sv
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose rm -fs
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose up -d
