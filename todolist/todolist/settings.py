@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "core",
     "djoser",
 ]
@@ -74,6 +75,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "todolist.wsgi.application"
+
+REST_FRAMEWORK = {}
 
 DJOSER = {
     "SERIALIZERS": {
