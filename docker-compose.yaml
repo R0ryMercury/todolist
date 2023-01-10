@@ -7,7 +7,7 @@ x-common-variables: &common-variables
 
 services:
   api:
-    image: gmoroz/todolist
+    build: .
     command: >
       sh -c "python /code/todolist/manage.py collectstatic --noinput
       && python /code/todolist/manage.py runserver 0.0.0.0:8000"
@@ -23,7 +23,7 @@ services:
       migration:
           condition: service_completed_successfully
   migration:
-    image: gmoroz/todolist
+    build: .
     command: >
       sh -c "python /code/todolist/manage.py migrate"
     env_file:
