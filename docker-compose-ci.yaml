@@ -26,11 +26,12 @@ services:
         condition: service_healthy
   frontend:
     build: ./frontend
-    image: gmoroz/todolist
+    image: gmoroz/todolist-front
     volumes:
       - frontend:/app/build
     depends_on:
-      - db    
+      - db
+      - api
   db:
     image: postgres:latest
     volumes:
@@ -47,7 +48,18 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-
+  nginx:
+    image: nginx:1.19.3
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf
+      - frontend:/usr/share/nginx/html/
+    restart: always
+    depends_on:
+      - db
+      - frontend
+      
 volumes:
   postgres_data:
   frontend:
