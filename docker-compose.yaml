@@ -9,12 +9,14 @@ services:
   api:
     image: gmoroz/todolist
     command: >
-      sh -c "python /code/todolist/manage.py collectstatic
+      sh -c "python /code/todolist/manage.py collectstatic --noinput
       && python /code/todolist/manage.py runserver 0.0.0.0:8000"
     ports:
       - 8000:8000
     env_file:
       - .env.docker
+    volumes:
+      - staticdata:/usr/src/app/static_files
     depends_on:
       db:
           condition: service_healthy
@@ -64,3 +66,4 @@ services:
 volumes:
   postgres_data:
   frontend:
+  staticdata:
