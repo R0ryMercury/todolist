@@ -1,5 +1,10 @@
 version: '3.9'
 
+x-common-variables: &common-variables
+  POSTGRES_USER: todolist
+  POSTGRES_PASSWORD: todolist
+  POSTGRES_DB: todolist
+
 services:
   api:
     image: gmoroz/todolist
@@ -32,12 +37,10 @@ services:
       - api
   db:
     image: postgres:latest
+    environment: 
+      *common-variables
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=todolist
-      - POSTGRES_PASSWORD=todolist
-      - POSTGRES_DB=todolist
     restart: always
     ports:
       - 5432:5432
