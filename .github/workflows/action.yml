@@ -55,5 +55,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd todolist
-            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose rm -fs
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker image prune -af
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker volume prune -af --filter "label!=todolist_postgres_data"
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose up -d
