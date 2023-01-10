@@ -2,7 +2,6 @@ version: '3.9'
 
 services:
   api:
-    build: .
     image: gmoroz/todolist:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     command: >
       sh -c "python /code/todolist/manage.py runserver 0.0.0.0:8000"
@@ -16,7 +15,6 @@ services:
       migration:
           condition: service_completed_successfully
   migration:
-    build: .
     image: gmoroz/todolist:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     command: python /code/todolist/manage.py migrate
     volumes:
@@ -25,7 +23,6 @@ services:
       db:
         condition: service_healthy
   frontend:
-    build: ./frontend
     image: gmoroz/todolist-front
     volumes:
       - frontend:/app/build
