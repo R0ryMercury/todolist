@@ -40,7 +40,7 @@ services:
       db:
         condition: service_healthy
   frontend:
-    image: gmoroz/todolist-front
+    image: sermalenk/skypro-front:lesson-35
     volumes:
       - frontend:/app/build
     depends_on:
