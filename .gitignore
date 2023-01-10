@@ -150,3 +150,4 @@ dmypy.json
 .pytype/
 
 .env.*
+draft.py
