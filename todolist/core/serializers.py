@@ -47,3 +47,16 @@ class LoginSerializer(serializers.Serializer):
             raise ValidationError("username or password is incorrect")
         attrs["user"] = user
         return attrs
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        read_only_fields = ("id",)
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+        )
