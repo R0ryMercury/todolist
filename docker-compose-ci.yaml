@@ -43,6 +43,8 @@ services:
     image: sermalenk/skypro-front:lesson-35
     volumes:
       - frontend:/app/build
+    ports:
+      - 8038:80
     depends_on:
       - db
       - api

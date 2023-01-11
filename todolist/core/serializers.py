@@ -5,7 +5,7 @@ from core.models import User
 
 class CreateUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, validators=[])
-    password_repeat = serializers.CharField()
+    password_repeat = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
@@ -22,7 +22,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         password = attrs.get("password")
-        password_repeat = attrs.pop("password", None)
+        password_repeat = attrs.pop("password_repeat", None)
         if password != password_repeat:
             raise ValidationError("passwords don't match")
         return attrs
