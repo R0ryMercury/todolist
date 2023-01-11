@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
@@ -32,3 +33,17 @@ class CreateUserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         self.user = user
         return user
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True)
+
+    def validate(self, attrs):
+        username = attrs.get("username")
+        password = attrs.get("password")
+        user = authenticate(username=username, password=password)
+        if user is None:
+            raise ValidationError("username or password is incorrect")
+        attrs["user"] = user
+        return attrs
