@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "core",
-    "djoser",
 ]
 
 MIDDLEWARE = [
@@ -78,13 +77,6 @@ WSGI_APPLICATION = "todolist.wsgi.application"
 
 REST_FRAMEWORK = {}
 
-DJOSER = {
-    "SERIALIZERS": {
-        "user_create": "user.serializers.UserRegistrationSerializer",
-        "current_user": "user.serializers.CurrentUserSerializer",
-    },
-    "LOGIN_FIELD": "username",
-}
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
