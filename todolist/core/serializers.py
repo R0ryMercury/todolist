@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
 from core.models import User
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, validators=[])
+    password = serializers.CharField(write_only=True, validators=[validate_password])
     password_repeat = serializers.CharField(write_only=True)
 
     class Meta:
