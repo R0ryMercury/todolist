@@ -20,7 +20,7 @@ services:
       *common-variables
     command: >
       sh -c "python /code/todolist/manage.py collectstatic --noinput
-      && python /code/todolist/manage.py runserver 0.0.0.0:8000"
+      && python /code/todolist/manage.py runserver"
     ports:
       - 8000:8000
     volumes:

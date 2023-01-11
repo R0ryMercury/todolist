@@ -71,6 +71,7 @@ class UpdatePasswordSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         read_only_fields = ("id",)
+        fields = ("old_password", "new_password")
 
     def validate(self, attrs):
         old_password = attrs.get("old_password")
