@@ -79,6 +79,7 @@ WSGI_APPLICATION = "todolist.wsgi.application"
 
 REST_FRAMEWORK = {}
 
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
