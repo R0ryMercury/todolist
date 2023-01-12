@@ -12,6 +12,7 @@ from goals.serializers import (
     GoalCategoryCreateSerializer,
     GoalCategorySerializer,
     GoalCreateSerializer,
+    GoalSerializer,
 )
 
 
@@ -51,6 +52,9 @@ class GoalCategoryView(RetrieveUpdateDestroyAPIView):
         instance.save()
         return instance
 
+
 class GoalCreateView(CreateAPIView):
     model = Goal
     serializer_class = GoalSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
