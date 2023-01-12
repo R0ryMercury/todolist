@@ -30,6 +30,11 @@ from goals.serializers import (
 )
 
 
+class BoardCreateView(CreateAPIView):
+    model = Board
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = BoardCreateSerializer
+
 
 class GoalCategoryCreateView(CreateAPIView):
     model = GoalCategory
