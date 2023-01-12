@@ -14,6 +14,7 @@ from goals.serializers import (
     GoalCreateSerializer,
     GoalSerializer,
 )
+from goals.permissions import GoalPermissions
 
 
 class GoalCategoryCreateView(CreateAPIView):
@@ -62,4 +63,9 @@ class GoalCreateView(CreateAPIView):
 class GoalView(RetrieveUpdateDestroyAPIView):
     model = Goal
     serializer_class = GoalSerializer
-    permission_classes = []
+    permission_classes = [permissions.IsAuthenticated, GoalPermissions]
+
+    def perform_destroy(self, instance):
+        instance.status = Goal.Status.archived
+        instance.save()
+        return instance
