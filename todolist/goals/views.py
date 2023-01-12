@@ -6,6 +6,7 @@ from rest_framework.generics import (
 from rest_framework import permissions
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 from goals.models import Goal, GoalCategory
 from goals.serializers import (
@@ -69,3 +70,16 @@ class GoalView(RetrieveUpdateDestroyAPIView):
         instance.status = Goal.Status.archived
         instance.save()
         return instance
+
+
+class GoalListView(ListAPIView):
+    model = Goal
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GoalSerializer
+    pagination_class = LimitOffsetPagination
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+    filterset_class = 
