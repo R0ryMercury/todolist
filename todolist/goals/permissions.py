@@ -52,4 +52,4 @@ class CommentPermissions(permissions.BasePermission):
             return False
         if request.method in permissions.SAFE_METHODS:
             return True
-        return obj.user == request.
+        return obj.user == request.user
