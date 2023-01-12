@@ -100,6 +100,18 @@ class GoalCategoryCreateSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "created", "updated", "user")
         fields = "__all__"
 
+    def validate_board(self, value):
+        if value.is_deleted:
+            raise serializers.ValidationError("No access to the deleted project.")
+        allow = BoardParticipant.objects.filter(
+            board=value,
+            role__in=[BoardParticipant.Role.owner, BoardParticipant.Role.writer],
+            user=self.context["request"].user,
+        ).exists()
+        if not allow:
+            raise serializers.ValidationError("must be owner or writer in project")
+        return value
+
 
 class GoalCreateSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(queryset=GoalCategory.objects.all())
@@ -147,6 +159,15 @@ class CommentCreateSerializer(serializers.ModelSerializer):
         model = GoalComment
         fields = "__all__"
         read_only_fields = ("id", "created", "updated", "user")
+
+    def validate_goal(self, value):
+        if not BoardParticipant.objects.filter(
+            board_id=value.category.board_id,
+            role__in=[BoardParticipant.Role.owner, BoardParticipant.Role.writer],
+            user=self.context["request"].user,
+        ).exists():
+            raise serializers.ValidationError("must be owner or writer in project")
+        return value
 
 
 class CommentSerializer(serializers.ModelSerializer):

@@ -114,7 +114,7 @@ class Goal(DatesModelMixin):
         verbose_name="Приоритет", choices=Priority.choices, default=Priority.medium
     )
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.title
 
 
