@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from goals.models import Goal, GoalCategory
+from goals.models import Goal, GoalCategory, GoalComment
 from core.serializers import UserSerializer
 
 
@@ -48,3 +48,12 @@ class GoalSerializer(serializers.ModelSerializer):
         if value.is_deleted:
             raise serializers.ValidationError("No access to the deleted category.")
         return value
+
+
+class CommentCreateSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = GoalComment
+        fields = "__all__"
+        read_only_fields = ("id", "created", "updated", "user")
