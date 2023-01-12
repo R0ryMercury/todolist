@@ -17,7 +17,11 @@ from goals.serializers import (
     GoalCreateSerializer,
     GoalSerializer,
 )
-from goals.permissions import CommentPermissions, GoalCategoryPermissions, GoalPermissions
+from goals.permissions import (
+    CommentPermissions,
+    GoalCategoryPermissions,
+    GoalPermissions,
+)
 from goals.filters import GoalDateFilter
 
 
