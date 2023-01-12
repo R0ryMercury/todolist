@@ -4,6 +4,20 @@ from django.utils import timezone
 from core.models import User
 
 
+class DatesModelMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    created = models.DateTimeField(verbose_name="Дата создания")
+    updated = models.DateTimeField(verbose_name="Дата последнего обновления")
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+        self.updated = timezone.now()
+        return super.save(*args, **kwargs)
+
+
 class GoalCategory(models.Model):
     class Meta:
         verbose_name = "Категория"
@@ -20,3 +34,4 @@ class GoalCategory(models.Model):
             self.created = timezone.now()  # проставляем дату создания
         self.updated = timezone.now()  # проставляем дату обновления
         return super().save(*args, **kwargs)
+
