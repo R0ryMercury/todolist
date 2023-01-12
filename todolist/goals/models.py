@@ -41,6 +41,9 @@ class BoardParticipant(DatesModelMixin):
         writer = 2, "Редактор"
         reader = 3, "Читатель"
 
+    editable_choices = Role.choices
+    editable_choices.pop(0)
+
     board = models.ForeignKey(
         Board,
         verbose_name="Доска",
