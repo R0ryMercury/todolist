@@ -16,6 +16,7 @@ from goals.serializers import (
     GoalSerializer,
 )
 from goals.permissions import GoalPermissions
+from goals.filters import GoalDateFilter
 
 
 class GoalCategoryCreateView(CreateAPIView):
@@ -82,4 +83,7 @@ class GoalListView(ListAPIView):
         filters.SearchFilter,
         filters.OrderingFilter,
     ]
-    filterset_class = 
+    filterset_class = GoalDateFilter
+    search_fields = ["title", "description"]
+    ordering_fields = ["due_date", "priority"]
+    ordering = ["priority", "due_date"]
