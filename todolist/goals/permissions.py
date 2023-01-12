@@ -25,3 +25,12 @@ class GoalPermissions(permissions.BasePermission):
         return (
             request.user and request.user.is_authenticated and obj.user == request.user
         )
+
+
+class CommentPermissions(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if not request.user.is_authenticated:
+            return False
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.user == request.user
