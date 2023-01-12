@@ -15,7 +15,7 @@ from goals.serializers import (
     GoalCreateSerializer,
     GoalSerializer,
 )
-from goals.permissions import GoalPermissions
+from goals.permissions import GoalCategoryPermissions, GoalPermissions
 from goals.filters import GoalDateFilter
 
 
@@ -31,10 +31,11 @@ class GoalCategoryListView(ListAPIView):
     serializer_class = GoalCategorySerializer
     pagination_class = LimitOffsetPagination
     filter_backends = [
+        DjangoFilterBackend,
         filters.OrderingFilter,
         filters.SearchFilter,
     ]
-    ordering_fields = ["title", "created"]
+    ordering_fields = ["title", "date_created"]
     ordering = ["title"]
     search_fields = ["title"]
 
@@ -45,7 +46,7 @@ class GoalCategoryListView(ListAPIView):
 class GoalCategoryView(RetrieveUpdateDestroyAPIView):
     model = GoalCategory
     serializer_class = GoalCategorySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, GoalCategoryPermissions]
 
     def get_queryset(self):
         return GoalCategory.objects.filter(user=self.request.user, is_deleted=False)
@@ -58,7 +59,7 @@ class GoalCategoryView(RetrieveUpdateDestroyAPIView):
 
 class GoalCreateView(CreateAPIView):
     model = Goal
-    serializer_class = GoalSerializer
+    serializer_class = GoalCreateSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 

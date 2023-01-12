@@ -15,7 +15,7 @@ class DatesModelMixin(models.Model):
         if not self.id:
             self.created = timezone.now()
         self.updated = timezone.now()
-        return super.save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
 
 class GoalCategory(DatesModelMixin):
@@ -35,7 +35,7 @@ class Goal(DatesModelMixin):
 
     class Status(models.IntegerChoices):
         to_do = 1, "К выполнению"
-        in_progress = 2, "В прогрессе"
+        in_progress = 2, "В процессе"
         done = 3, "Выполнено"
         archived = 4, "Архив"
 

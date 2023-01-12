@@ -13,7 +13,7 @@ class GoalCategorySerializer(serializers.ModelSerializer):
 
 
 class GoalCategoryCreateSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault)
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = GoalCategory
