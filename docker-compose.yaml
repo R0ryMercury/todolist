@@ -36,7 +36,7 @@ services:
     volumes:
       - frontend:/app/build
     ports:
-      - 8038:80
+      - 80:80
     depends_on:
       - db
       - api
