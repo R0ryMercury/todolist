@@ -1,15 +1,6 @@
 from rest_framework import serializers
-from goals.models import GoalCategory
+from goals.models import Goal, GoalCategory
 from core.serializers import UserSerializer
-
-
-class GoalCreateSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
-    class Meta:
-        model = GoalCategory
-        read_only_fields = ("id", "created", "updated", "user")
-        fields = "__all__"
 
 
 class GoalCategorySerializer(serializers.ModelSerializer):
@@ -28,3 +19,30 @@ class GoalCategoryCreateSerializer(serializers.ModelSerializer):
         model = GoalCategory
         read_only_fields = ("id", "created", "updated", "user")
         fields = "__all__"
+
+
+class GoalCreateSerializer(serializers.ModelSerializer):
+    category = serializers.PrimaryKeyRelatedField(queryset=GoalCategory.objects.all())
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = Goal
+        read_only_fields = ("id", "created", "updated", "user")
+        fields = "__all__"
+
+    def validate_category(self, value):
+        if value.is_deleted:
+            raise serializers.ValidationError("No access to the deleted category.")
+
+
+class GoalSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Goal
+        read_only_fields = ("id", "created", "updated", "user")
+        fields = "__all__"
+
+    def validate_category(self, value):
+        if value.is_deleted:
+            raise serializers.ValidationError("No access to the deleted category.")

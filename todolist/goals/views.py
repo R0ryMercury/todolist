@@ -7,14 +7,18 @@ from rest_framework import permissions
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework import filters
 
-from goals.models import GoalCategory
-from goals.serializers import GoalCategorySerializer, GoalCreateSerializer
+from goals.models import Goal, GoalCategory
+from goals.serializers import (
+    GoalCategoryCreateSerializer,
+    GoalCategorySerializer,
+    GoalCreateSerializer,
+)
 
 
 class GoalCategoryCreateView(CreateAPIView):
     model = GoalCategory
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = GoalCreateSerializer
+    serializer_class = GoalCategoryCreateSerializer
 
 
 class GoalCategoryListView(ListAPIView):
@@ -46,3 +50,7 @@ class GoalCategoryView(RetrieveUpdateDestroyAPIView):
         instance.is_deleted = True
         instance.save()
         return instance
+
+class GoalCreateView(CreateAPIView):
+    model = Goal
+    serializer_class = GoalSerializer
