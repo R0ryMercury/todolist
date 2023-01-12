@@ -19,3 +19,12 @@ class GoalCategorySerializer(serializers.ModelSerializer):
         model = GoalCategory
         fields = "__all__"
         read_only_fields = ("id", "created", "updated", "user")
+
+
+class GoalCategoryCreateSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault)
+
+    class Meta:
+        model = GoalCategory
+        read_only_fields = ("id", "created", "updated", "user")
+        fields = "__all__"
