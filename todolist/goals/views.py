@@ -73,10 +73,13 @@ class GoalView(RetrieveUpdateDestroyAPIView):
         instance.save()
         return instance
 
+    def get_queryset(self):
+        return Goal.objects.filter(user=self.request.user)
+
 
 class GoalListView(ListAPIView):
     model = Goal
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, GoalPermissions]
     serializer_class = GoalSerializer
     pagination_class = LimitOffsetPagination
     filter_backends = [
@@ -88,3 +91,6 @@ class GoalListView(ListAPIView):
     search_fields = ["title", "description"]
     ordering_fields = ["due_date", "priority"]
     ordering = ["priority", "due_date"]
+
+    def get_queryset(self):
+        return Goal.objects.filter(user=self.request.user)

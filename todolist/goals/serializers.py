@@ -33,6 +33,7 @@ class GoalCreateSerializer(serializers.ModelSerializer):
     def validate_category(self, value):
         if value.is_deleted:
             raise serializers.ValidationError("No access to the deleted category.")
+        return value
 
 
 class GoalSerializer(serializers.ModelSerializer):
@@ -46,3 +47,4 @@ class GoalSerializer(serializers.ModelSerializer):
     def validate_category(self, value):
         if value.is_deleted:
             raise serializers.ValidationError("No access to the deleted category.")
+        return value
