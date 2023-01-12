@@ -77,6 +77,12 @@ class BoardSerializer(serializers.ModelSerializer):
         return instance
 
 
+class BoardListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Board
+        fields = "__all__"
+
+
 class GoalCategorySerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
