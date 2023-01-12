@@ -57,6 +57,20 @@ class BoardView(RetrieveUpdateDestroyAPIView):
         return instance
 
 
+class BoardListView(ListAPIView):
+    model = Board
+    permission_classes = [permissions.IsAuthenticated]
+    pagination_class = LimitOffsetPagination
+    serializer_class = BoardListSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering = ["title"]
+
+    def get_queryset(self):
+        return Board.objects.filter(
+            participants__user=self.request.user, is_deleted=False
+        )
+
+
 class GoalCategoryCreateView(CreateAPIView):
     model = GoalCategory
     permission_classes = [permissions.IsAuthenticated]
