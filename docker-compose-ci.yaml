@@ -42,7 +42,7 @@ services:
       db:
         condition: service_healthy
   frontend:
-    image: sermalenk/skypro-front:lesson-37
+    image: sermalenk/skypro-front:lesson-38
     volumes:
       - frontend:/app/build
     ports:
