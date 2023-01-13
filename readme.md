@@ -1,18 +1,8 @@
 # Web-приложение для планирования целей
 
-### Установка зависимостей
-
-    pip install -r requirements.txt
-
-или
-
-    poetry install
-
 ### Запуск приложения
 
-    ./manage.py makemigrations
-    ./manage.py migrate
-    ./manage.py runserver
+    docker-compose up --build
 
 ## Функционал:
 
