@@ -41,6 +41,15 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  bot:
+    image: gmoroz/todolist:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    environment: 
+      *common-variables
+    command: >
+      sh -c "python /code/todolist/manage.py runbot"
+    depends_on:
+      db:
+        condition: service_healthy
   frontend:
     image: sermalenk/skypro-front:lesson-38
     volumes:
