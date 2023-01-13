@@ -20,7 +20,7 @@ class TgUser(models.Model):
         verbose_name="Пользователь в системе",
     )
     verification_code = models.CharField(
-        max_length=12, verbose_name="код подтверждения", default=""
+        max_length=32, verbose_name="код подтверждения", default=""
     )
 
     def set_verification_code(self):
