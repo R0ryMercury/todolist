@@ -2,8 +2,11 @@ from django.db import models
 
 
 class TgUser(models.Model):
+    tg_id = models.BigIntegerField(verbose_name="tg id", unique=True)
     tg_chat_id = models.BigIntegerField(verbose_name="tg chat id")
-    tg_user_id = models.BigIntegerField(verbose_name="tg id", unique=True)
+    username = models.CharField(
+        max_length=512, verbose_name="tg username", null=True, blank=True, default=None
+    )
     user = models.ForeignKey(
         "core.User",
         models.PROTECT,
