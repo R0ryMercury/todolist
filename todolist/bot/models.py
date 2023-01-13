@@ -1,4 +1,8 @@
 from django.db import models
+from secrets import choice
+from string import ascii_letters, digits
+
+CODE_CHOICES = ascii_letters + digits
 
 
 class TgUser(models.Model):
@@ -15,6 +19,13 @@ class TgUser(models.Model):
         default=None,
         verbose_name="Пользователь в системе",
     )
+    verification_code = models.CharField(
+        max_length=12, verbose_name="код подтверждения", default=""
+    )
+
+    def set_verification_code(self):
+        code = "".join(choice(CODE_CHOICES) for _ in range(12))
+        self.verification_code = code
 
     class Meta:
         verbose_name = "tg пользователь"
