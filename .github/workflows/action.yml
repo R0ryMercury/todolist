@@ -60,3 +60,4 @@ jobs:
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker image prune -af
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker volume prune -f --filter "label!=todolist_postgres_data"
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose up -d
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose logs
