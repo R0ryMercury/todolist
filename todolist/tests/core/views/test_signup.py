@@ -46,3 +46,33 @@ def test_success_short(client, faker):
     }
     assert user.password != password
     assert user.check_password(password)
+
+
+@pytest.mark.django_db
+def test_success_full(client, faker):
+    assert not User.objects.count()
+    password = faker.password()
+    response = client.post(
+        SIGNUP_URL,
+        data={
+            "username": faker.user_name(),
+            "first_name": faker.first_name(),
+            "last_name": faker.last_name(),
+            "email": faker.email(),
+            "password": password,
+            "password_repeat": password,
+        },
+    )
+    assert response.status_code == status.HTTP_201_CREATED
+    assert User.objects.count() == 1
+    
+    user = User.objects.last()
+    assert response.json() == {
+        "id": user.id,
+        "username": user.username,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "email": user.email,
+    }
+    assert user.password != password
+    assert user.check_password(password)
