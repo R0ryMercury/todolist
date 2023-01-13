@@ -1,6 +1,6 @@
 import pytest
 
-from todolist.core.models import User
+from core.models import User
 
 
 @pytest.fixture
