@@ -50,7 +50,7 @@ def test_success(client, faker, user_attrs: dict):
         LOGIN_URL,
         data={
             "username": user.username,
-            "password": user.password,
+            "password": password,
         },
     )
     assert response.status_code == status.HTTP_200_OK
