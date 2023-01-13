@@ -1,7 +1,6 @@
 import pytest
 from rest_framework import status
 
-from goals.models import BoardParticipant, Board
 
 GOAL_URL = "/goals/goal/list"
 
