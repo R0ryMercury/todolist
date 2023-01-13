@@ -18,6 +18,7 @@ marshmallow-dataclass = "^8.5.11"
 requests = "^2.28.2"
 pytest-django = "^4.5.2"
 pytest-faker = "^2.0.0"
+pytest-factoryboy = "^2.5.1"
 
 
 [build-system]

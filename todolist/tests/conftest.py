@@ -1,16 +1,24 @@
 import pytest
+from pytest_factoryboy import register
 
-from core.models import User
+from tests.factories import (
+    UserFactory,
+    BoardFactory,
+    BoardParticipantFactory,
+    CategoryFactory,
+    GoalFactory,
+)
+
+
+register(UserFactory)
+register(BoardFactory)
+register(BoardParticipantFactory)
+register(CategoryFactory)
+register(GoalFactory)
 
 
 @pytest.fixture
 @pytest.mark.django_db
-def user(faker) -> User:
-    user_data: dict[str, str] = {
-        "username": faker.user_name(),
-        "password": faker.password(),
-    }
-    if "email" in User.REQUIRED_FIELDS:
-        user_data["email"] = faker.email()
-
-    return User.objects.create_user(**user_data)
+def auth_client(client, user):
+    client.force_login(user)
+    return client
