@@ -11,3 +11,8 @@ def test_auth_required(client, board):
     assert response.status_code == status.HTTP_403_FORBIDDEN
 
 
+@pytest.mark.django_db
+def test_sucess(client, board, user):
+    client.force_login(user)
+    response = client.post(BOARD_CREATE_URL, data={"title": board.title})
+    assert response.status_code == status.HTTP_201_CREATED
