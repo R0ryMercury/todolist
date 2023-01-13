@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "core",
     "goals",
     "bot",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -95,6 +96,16 @@ DATABASES = {
         "HOST": env("DB_HOST"),
         "PORT": env("DB_PORT"),
     }
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Todolist API",
+    "DESCRIPTION": "The web app for goals management",
+    "VERSION": "1.0.0",
 }
 
 # Password validation
