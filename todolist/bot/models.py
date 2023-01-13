@@ -3,7 +3,7 @@ from django.db import models
 
 class TgUser(models.Model):
     tg_chat_id = models.BigIntegerField(verbose_name="tg chat id")
-    tg_id = models.BigIntegerField(verbose_name="tg id", unique=True)
+    tg_user_id = models.BigIntegerField(verbose_name="tg id", unique=True)
     user = models.ForeignKey(
         "core.User",
         models.PROTECT,
