@@ -42,3 +42,5 @@
 ![search](https://github.com/gmoroz/todolist/blob/master/readme_files/search.gif)
 
 ### 7. Комментарии к целям.
+
+![comments](https://github.com/gmoroz/todolist/blob/master/readme_files/comments.gif)
