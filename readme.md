@@ -37,5 +37,8 @@
 
 ![search](https://github.com/gmoroz/todolist/blob/master/readme_files/search.gif)
 
-6.  Фильтрация по статусу, категории, приоритету, году.
-7.  Комментарии к целям.
+### 6. Фильтрация по статусу, категории, приоритету, году.
+
+![search](https://github.com/gmoroz/todolist/blob/master/readme_files/search.gif)
+
+### 7. Комментарии к целям.
