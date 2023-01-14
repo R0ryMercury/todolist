@@ -96,15 +96,12 @@ class Command(BaseCommand):
 
         match msg.text.replace(" ", ""):
             case "/goals":
-                self.cancel(msg, tg_user)
                 self.fetch_goals(msg, tg_user)
             case "/create":
-                self.cancel(msg, tg_user)
                 self.fetch_cats(msg, tg_user)
             case "/cancel":
                 self.cancel(msg, tg_user)
             case "/help":
-                self.cancel(msg, tg_user)
                 self.help_(msg, tg_user)
             case _:
                 if tg_user.is_creating:
