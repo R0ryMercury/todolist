@@ -5,7 +5,7 @@ from todolist import settings
 from bot.tg.client import TgClient
 from bot.tg.dc import Message
 from bot.models import TgUser
-from goals.models import BoardParticipant, Goal, GoalCategory
+from goals.models import Goal, GoalCategory
 
 
 class Command(BaseCommand):
@@ -45,23 +45,32 @@ class Command(BaseCommand):
             self.tg_client.send_message(msg.chat.id, "[categories list is empty]")
 
     def choose_cat(self, msg: Message, tg_user: TgUser):
-        cat = GoalCategory.objects.filter(user=tg_user.user, title=msg.text).first()
-        if cat:
-            resp_msg = f"you have selected a category {cat}"
+        category = GoalCategory.objects.filter(
+            user=tg_user.user, title=msg.text
+        ).first()
+        if category:
+            resp_msg = f"you have selected a category {category}\nEnter a title for your goal, please"
             self.tg_client.send_message(msg.chat.id, resp_msg)
 
             tg_user.is_creating = False
-            tg_user.cat_choosen = cat.title
+            tg_user.cat_choosen = category.title
             tg_user.save(update_fields=["is_creating", "cat_choosen"])
 
         else:
             resp_msg = f"The category '{msg.text}' does not exist"
+            self.tg_client.send_message(msg.chat.id, resp_msg)
             self.fetch_cats(msg, tg_user)
 
     def create_goal(self, msg: Message, tg_user: TgUser):
-        board_participant = BoardParticipant.objects.filter(
-            user=tg_user.user, role=BoardParticipant.Role.owner
-        )
+        category = GoalCategory.objects.filter(
+            user=tg_user.user, title=tg_user.cat_choosen
+        ).first()
+        Goal.objects.create(title=msg.text, category=category, user=tg_user.user)
+        tg_user.cat_choosen = None
+        tg_user.save(update_fields=["cat_choosen"])
+
+        resp_msg = f"Goal '{msg.text}' was succeffully created in the category '{category.title}' "
+        self.tg_client.send_message(msg.chat.id, resp_msg)
 
     def cancel(self, msg: Message, tg_user: TgUser):
         tg_user.is_creating = False
@@ -83,12 +92,10 @@ class Command(BaseCommand):
             case _:
                 if tg_user.is_creating:
                     self.choose_cat(msg, tg_user)
-                    return
-                if tg_user.cat_choosen:
+                elif tg_user.cat_choosen:
                     self.create_goal(msg, tg_user)
-                    return
-
-                self.tg_client.send_message(msg.chat.id, "[unknown command]")
+                else:
+                    self.tg_client.send_message(msg.chat.id, "[unknown command]")
 
     def handle_message(self, msg: Message):
         tg_user, created = TgUser.objects.get_or_create(
