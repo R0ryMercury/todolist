@@ -1,7 +1,6 @@
 from django.core.management import BaseCommand
+
 from todolist import settings
-
-
 from bot.tg.client import TgClient
 from bot.tg.dc import Message
 from bot.models import TgUser
@@ -23,7 +22,9 @@ class Command(BaseCommand):
         )
 
     def fetch_goals(self, msg: Message, tg_user: TgUser):
-        goals = Goal.objects.filter(user=tg_user.user)
+        goals = Goal.objects.filter(user=tg_user.user).exclude(
+            status=Goal.Status.archived
+        )
         if goals.count() > 0:
             resp_msg = (f"#{goal.id} {goal.title}" for goal in goals)
             self.tg_client.send_message(msg.chat.id, "\n".join(resp_msg))
@@ -31,7 +32,7 @@ class Command(BaseCommand):
             self.tg_client.send_message(msg.chat.id, "[goals list is empty]")
 
     def fetch_cats(self, msg: Message, tg_user: TgUser):
-        cats = GoalCategory.objects.filter(user=tg_user.user)
+        cats = GoalCategory.objects.filter(user=tg_user.user, is_deleted=False)
         if cats.count() > 0:
             info_msg = "Choose one of the categories bellow:"
             self.tg_client.send_message(msg.chat.id, info_msg)
