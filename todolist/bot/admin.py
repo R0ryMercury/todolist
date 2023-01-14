@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from todolist.bot.models import TgUser
+from bot.models import TgUser
 
-admin.register(TgUser)
+admin.site.register(TgUser)
