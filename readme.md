@@ -33,6 +33,9 @@
 
 ![delete category or goal](https://github.com/gmoroz/todolist/blob/master/readme_files/delete_cat_goal.gif)
 
-5.  Поиск по названию цели.
+### 5. Поиск по названию цели.
+
+![search](https://github.com/gmoroz/todolist/blob/master/readme_files/search.gif)
+
 6.  Фильтрация по статусу, категории, приоритету, году.
 7.  Комментарии к целям.
