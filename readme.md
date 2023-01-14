@@ -44,3 +44,7 @@
 ### 7. Комментарии к целям.
 
 ![comments](https://github.com/gmoroz/todolist/blob/master/readme_files/comments.gif)
+
+### 8. Подключение tg аккаунта и добавление целей через него
+
+![tg bot](https://github.com/gmoroz/todolist/blob/master/readme_files/tg_bot.gif)
