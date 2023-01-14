@@ -27,8 +27,7 @@
 2.  Изменение статуса.
 3.  Возможность менять приоритет и категорию у цели.
 
-
-
+![goal_update](https://github.com/gmoroz/todolist/blob/master/readme_files/goal_update.gif)
 
 4.  Удаление цели.
     1.  При удалении цель меняет статус на «в архиве».
