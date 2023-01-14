@@ -49,6 +49,7 @@ class Command(BaseCommand):
         if cat:
             resp_msg = f"you have selected a category {cat}"
             self.tg_client.send_message(msg.chat.id, resp_msg)
+            
         else:
             resp_msg = f"The category '{msg.text}' does not exist"
 

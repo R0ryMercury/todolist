@@ -4,7 +4,7 @@ from bot.tg.dc import GetUpdatesResponse, SendMessageResponse
 
 
 class TgClient:
-    is_creating = False
+    
 
     def __init__(self, token):
         self.token = token

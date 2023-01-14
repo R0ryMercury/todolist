@@ -22,6 +22,8 @@ class TgUser(models.Model):
     verification_code = models.CharField(
         max_length=32, verbose_name="код подтверждения", default=""
     )
+    is_creating = models.BooleanField(default=False)
+    cat_choosen = models.CharField(default=None, max_length=255, null=True, blank=True)
 
     def set_verification_code(self):
         code = "".join(choice(CODE_CHOICES) for _ in range(12))
