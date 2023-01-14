@@ -38,6 +38,9 @@ class Command(BaseCommand):
 
             resp_msg = (f"#{cat.id} {cat.title}" for cat in cats)
             self.tg_client.send_message(msg.chat.id, "\n".join(resp_msg))
+            self.tg_client.send_message(
+                msg.chat.id, "Or enter /cancel to cancel this operation"
+            )
 
             tg_user.is_creating = True
             tg_user.save(update_fields=["is_creating"])
@@ -78,17 +81,31 @@ class Command(BaseCommand):
         tg_user.save(update_fields=["is_creating", "cat_choosen"])
         self.tg_client.send_message(msg.chat.id, "[operation successfully canceled]")
 
+    def help_(self, msg: Message, tg_user: TgUser):
+        resp_message = """
+        Here some commands of this bot:
+        /goals ― Show a list of your goals
+        /create ― Start creating a new goal
+        /help ― This command
+        """
+        self.tg_client.send_message(msg.chat.id, resp_message)
+
     def handle_verified_user(self, msg: Message, tg_user: TgUser):
         if not msg.text:
             return
 
         match msg.text.replace(" ", ""):
             case "/goals":
+                self.cancel(msg, tg_user)
                 self.fetch_goals(msg, tg_user)
             case "/create":
+                self.cancel(msg, tg_user)
                 self.fetch_cats(msg, tg_user)
             case "/cancel":
                 self.cancel(msg, tg_user)
+            case "/help":
+                self.cancel(msg, tg_user)
+                self.help_(msg, tg_user)
             case _:
                 if tg_user.is_creating:
                     self.choose_cat(msg, tg_user)
