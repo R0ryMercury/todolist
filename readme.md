@@ -48,3 +48,7 @@
 ### 8. Подключение tg аккаунта и добавление целей через него
 
 ![tg bot](https://github.com/gmoroz/todolist/blob/master/readme_files/tg_bot.gif)
+
+### 9. Передача доступа другим пользователям
+
+![board sharing](https://github.com/gmoroz/todolist/blob/master/readme_files/board_sharing.gif)
